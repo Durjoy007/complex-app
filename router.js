@@ -6,6 +6,8 @@ let userController = require("./controllers/userController")
 // Base URL
 router.get("/", userController.home)
 
+router.post("/register", userController.register)
+
 
 
 module.exports = router
