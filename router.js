@@ -1,11 +1,10 @@
 const { Router } = require("express")
 const express = require("express")
 const router = express.Router()
+let userController = require("./controllers/userController") 
 
 // Base URL
-router.get("/", function(req, res){
-    res.render("home-guest")
-})
+router.get("/", userController.home)
 
 
 
