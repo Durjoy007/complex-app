@@ -16,6 +16,7 @@ app.set("view engine", "ejs")
 // Routes
 app.use("/", router)
 app.use("/register", router)
+app.use("/login", router)
 
 
 module.exports = app
