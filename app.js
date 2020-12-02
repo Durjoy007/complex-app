@@ -1,5 +1,5 @@
 const express = require("express")
-const port = process.env.port || 3000
+// const port = process.env.port || 3000
 
 const app = express()
 
@@ -18,6 +18,4 @@ app.use("/", router)
 app.use("/register", router)
 
 
-app.listen(port, function(req, res){
-    console.log(`server is connected and running on ${port}`)
-})
+module.exports = app
