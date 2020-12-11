@@ -1,7 +1,22 @@
 const User = require("../models/User")
 
-exports.home = function(req, res){
-    res.render("home-guest")
+exports.login = function(req, res){
+    let user = new User(req.body)
+    user.login().then(function(result){
+        req.session.user = {favColor: "black", username: user.data.username}
+        req.session.save( function(){
+            res.redirect("/")
+        })
+    }).catch(function(error){
+        res.send(error)
+    })
+}
+
+exports.logout = function(req, res){
+    req.session.destroy( function() {
+        res.redirect("/")
+    })
+    
 }
 
 exports.register = function(req, res){
@@ -11,15 +26,16 @@ exports.register = function(req, res){
         res.send(user.errors)
     }
     else{
-        res.send("Congratulations!")
+        req.session.save(function(){
+            res.redirect("/login")
+        })
     }
 }
 
-exports.login = function(req, res){
-    let user = new User(req.body)
-    user.login().then(function(result){
-        res.send(result)
-    }).catch(function(error){
-        res.send(error)
-    })
+exports.home = function(req, res){
+    if (req.session.user) {
+        res.render("home-dashboard", {username: req.session.user.username})
+    } else {
+        res.render("home-guest")        
+    }
 }
