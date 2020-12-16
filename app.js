@@ -1,6 +1,7 @@
 const express = require("express")
 const session = require("express-session")
 const MongoStore = require("connect-mongo")(session)
+const flash = require("connect-flash")
 // const port = process.env.port || 3000
 
 const app = express()
@@ -14,6 +15,7 @@ let sessionOption = session({
 })
 
 app.use(sessionOption)
+app.use(flash())
 
 const router = require("./router")
 
